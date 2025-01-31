@@ -89,12 +89,4 @@ dependencies {
 
     //Accompanist
     implementation (libs.accompanist.systemuicontroller)
-
-    //Gson
-    implementation (libs.gson)
-
-    //Moshi
-    implementation (libs.moshi)
-    implementation (libs.moshi.kotlin)
-
 }

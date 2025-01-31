@@ -13,6 +13,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import com.example.interactive.domain.ApiState
 import com.example.interactive.presentation.common.ShimmerEffect
+import com.example.interactive.presentation.common.ShimmerEffect2
 import com.example.interactive.presentation.components.DetailsTopBar
 
 @Composable
@@ -43,7 +44,7 @@ fun SquadDisplayScreen(
                 ShowSquadList(matchData = matchDetail, sortedType = selectedOption.value)
             }
             is ApiState.Loading -> {
-               ShimmerEffect()
+               ShimmerEffect2()
             }
             is ApiState.Error -> {
                 Text(text = "Error: ${(matchState as ApiState.Error).message}")
