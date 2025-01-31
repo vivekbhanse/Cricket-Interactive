@@ -25,7 +25,7 @@ fun parsePlayer(input: String): Player {
     val bowlingWickets = Regex("wickets=(\\d+)").find(input)?.groupValues?.get(1)?.toInt() ?: 0
 
     val isCaptain = Regex("(?i)isCaptain=([^,]+)").find(input)?.groupValues?.get(1)?.toBoolean() ?: false
-    val isKeeper = Regex("(?i)isKeeper=([^,]+)").find(input)?.groupValues?.get(1)?.toBoolean() ?: false
+    val isKeeper = Regex("(?i)isKeeper=([a-zA-Z]+)").find(input)?.groupValues?.get(1)?.toBoolean() ?: false
     val batting = Batting(
         battingStyle,
         battingAverage.toString(),
