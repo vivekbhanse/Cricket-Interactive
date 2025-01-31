@@ -1,5 +1,6 @@
 package com.example.interactive.presentation.components
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
@@ -15,7 +16,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.interactive.R
 import com.example.interactive.presentation.Dimens.Dimens16
 
@@ -24,24 +24,22 @@ fun OverflowMenu(modifier: Modifier = Modifier, onOptionSelected: (String) -> Un
     var expanded by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier
-            .padding(Dimens16)
+        modifier = Modifier.padding(Dimens16)
     ) {
         IconButton(onClick = { expanded = !expanded }) {
-            Icon( painter = painterResource(R.drawable.filter_icon), contentDescription = "More options", tint = Color.White)
+            Icon(
+                painter = painterResource(R.drawable.filter_icon),
+                contentDescription = "More options",
+                tint = if (isSystemInDarkTheme()) Color.White else Color.Black
+            )
         }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
+
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             listOf("Display All", "Team A", "Team B").forEach { option ->
-                DropdownMenuItem(
-                    text = { Text(option) },
-                    onClick = {
-                        onOptionSelected(option)
-                        expanded = false
-                    }
-                )
+                DropdownMenuItem(text = { Text(option) }, onClick = {
+                    onOptionSelected(option)
+                    expanded = false
+                })
             }
         }
     }

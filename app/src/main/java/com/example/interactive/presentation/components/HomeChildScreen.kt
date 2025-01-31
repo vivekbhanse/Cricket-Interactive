@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import com.example.interactive.data.remote.dto.MatchDetail
 import com.example.interactive.presentation.Dimens.MediumPadding1
 import com.example.interactive.presentation.Dimens.MediumPadding3
@@ -36,6 +37,7 @@ fun HomeChildScreen(match: MatchDetail) {
         ) {
             Text(
                 text = "${teams.n4.nameFull} vs ${teams.n5.nameFull}",
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                 fontFamily = FontFamily.SansSerif,
                 modifier = Modifier.fillMaxWidth()

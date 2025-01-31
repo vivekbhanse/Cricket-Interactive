@@ -41,7 +41,7 @@ fun MatchDetails(series: Series, venue: Venue, match: Match) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(Dimens8)
-                .background(DarkBlue),
+                .background(Color.Transparent),
 
             shape = RoundedCornerShape(Dimens8),
         ) {
