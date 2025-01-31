@@ -1,7 +1,6 @@
 package com.example.interactive.presentation.common
 
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -18,33 +17,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-
+import com.example.interactive.R
 import com.example.interactive.presentation.Dimens
+import com.example.interactive.presentation.Dimens.Dimens16
 import com.example.interactive.presentation.Dimens.MediumPadding1
-import com.example.sampleappforapi.R
 
 
-@SuppressLint("ModifierFactoryUnreferencedReceiver")
-fun Modifier.shimmerEffect() = composed {
+@Composable
+fun Modifier.shimmerEffect(): Modifier {
     val transition = rememberInfiniteTransition()
-    val alpha = transition.animateFloat(
-        initialValue = 0.2f, targetValue = 0.9f, animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000), repeatMode = RepeatMode.Reverse
+    val alpha by transition.animateFloat(
+        initialValue = 0.2f, targetValue = 0.9f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000),
+            repeatMode = RepeatMode.Reverse
         )
-    ).value
-    background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
+    )
+
+    return this.then(
+        Modifier.background(colorResource(id = R.color.shimmer).copy(alpha = alpha))
+    )
 }
 
 @Composable
 fun MatchCardShimmerEffect(modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier
+        modifier = modifier.padding(horizontal = MediumPadding1) // Ensuring consistent spacing
     ) {
         Box(
             modifier = Modifier
@@ -55,14 +59,13 @@ fun MatchCardShimmerEffect(modifier: Modifier = Modifier) {
         Column(
             verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
-                .padding(horizontal = Dimens.ExtraSmallPadding)
                 .height(Dimens.ArticleCardSize)
+                .padding(horizontal = Dimens.ExtraSmallPadding)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(30.dp)
-                    .padding(horizontal = MediumPadding1)
                     .shimmerEffect()
             )
             Row(
@@ -71,11 +74,9 @@ fun MatchCardShimmerEffect(modifier: Modifier = Modifier) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .padding(horizontal = MediumPadding1)
-                        .height(15.dp)
+                        .height(Dimens16)
                         .shimmerEffect()
                 )
-
             }
         }
     }
@@ -85,9 +86,8 @@ fun MatchCardShimmerEffect(modifier: Modifier = Modifier) {
 fun ShimmerEffect() {
     Column(verticalArrangement = Arrangement.spacedBy(MediumPadding1)) {
         repeat(10) {
-            MatchCardShimmerEffect(
-                modifier = Modifier.padding(horizontal = MediumPadding1)
-            )
+            MatchCardShimmerEffect()
         }
     }
 }
+

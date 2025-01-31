@@ -49,7 +49,6 @@ fun MatchNavigator() {
 
     }
 
-    //Hide the bottom navigation when the user is in the details screen
     val isBottomBarVisible = remember(key1 = backStackState) {
         backStackState?.destination?.route == Route.HomeScreen.route
     }
@@ -82,10 +81,10 @@ fun MatchNavigator() {
                 ) {
                     // Background Image
                     Image(
-                        painter = painterResource(id = R.drawable.bg_image_ball), // Replace with your image resource
+                        painter = painterResource(id = R.drawable.bg_image_ball),
                         contentDescription = null,
                         modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop // Crop the image to fill the whole screen
+                        contentScale = ContentScale.Crop
                     )
                 }
                 HomeMatchScreen(homeViewModel)
@@ -115,9 +114,3 @@ private fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-private fun navigateToDetails(navController: NavController) {
-    navController.currentBackStackEntry?.savedStateHandle?.set("article", null)
-    navController.navigate(
-        route = Route.DetailsScreen.route
-    )
-}

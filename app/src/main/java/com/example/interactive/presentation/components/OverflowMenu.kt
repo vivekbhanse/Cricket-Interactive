@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.interactive.R
+import com.example.interactive.presentation.Dimens.Dimens16
 
 @Composable
 fun OverflowMenu(modifier: Modifier = Modifier, onOptionSelected: (String) -> Unit) {
@@ -24,7 +25,7 @@ fun OverflowMenu(modifier: Modifier = Modifier, onOptionSelected: (String) -> Un
 
     Box(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(Dimens16)
     ) {
         IconButton(onClick = { expanded = !expanded }) {
             Icon( painter = painterResource(R.drawable.filter_icon), contentDescription = "More options", tint = Color.White)
@@ -37,8 +38,8 @@ fun OverflowMenu(modifier: Modifier = Modifier, onOptionSelected: (String) -> Un
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {
-                        onOptionSelected(option) // Capture clicked value
-                        expanded = false // Dismiss menu
+                        onOptionSelected(option)
+                        expanded = false
                     }
                 )
             }

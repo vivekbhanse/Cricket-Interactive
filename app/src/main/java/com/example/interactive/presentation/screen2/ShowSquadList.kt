@@ -1,8 +1,6 @@
 package com.example.interactive.presentation.screen2
 
 
-import Batting
-import Bowling
 import Player
 import SquadMatchData
 import androidx.compose.foundation.background
@@ -29,6 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.interactive.presentation.Dimens.Dimens16
+import com.example.interactive.presentation.Dimens.Dimens8
+import com.example.interactive.presentation.common.parsePlayer
 import com.example.interactive.presentation.ui.theme.DarkBlue
 import com.example.interactive.presentation.ui.theme.DarkPink
 import com.example.interactive.presentation.ui.theme.DarkRed
@@ -49,7 +50,7 @@ fun ShowSquadList(matchData: SquadMatchData, sortedType: String) {
         when (sortedType) {
             "Team B" -> listOf(teamNam to (teamPlayersMap[teamNam] ?: emptyList()))
             "Team A" -> listOf(teamNam2 to (teamPlayersMap[teamNam2] ?: emptyList()))
-            else -> teamPlayersMap.toList() // Convert the entire map to a list
+            else -> teamPlayersMap.toList()
         }
     }
     var selectedPlayer by remember { mutableStateOf<Player?>(null) }
@@ -63,39 +64,39 @@ fun ShowSquadList(matchData: SquadMatchData, sortedType: String) {
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
+                        .padding(Dimens8)
                         .background(DarkRed)
-                        .padding(8.dp)
+                        .padding(Dimens8)
                 )
             }
             items(players.size) { index ->
-                val backgroundColor = if (index % 2 == 0) DarkBlue else DarkPink // LightBlue and LightPink
+                val backgroundColor = if (index % 2 == 0) DarkBlue else DarkPink
 
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp)
-                        .clickable { selectedPlayer = players[index] } // Open dialog on Card click
+                        .padding(Dimens8)
+                        .clickable { selectedPlayer = players[index] }
                         .background(Color.Transparent),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(Dimens16),
                 ) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(backgroundColor) // Apply background inside the Row
-                            .padding(8.dp) // Inner padding
+                            .background(backgroundColor)
+                            .padding(Dimens8)
                     ) {
                         Text(
                             text = (index + 1).toString().plus("."),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(16.dp)
+                            modifier = Modifier.padding(Dimens16)
                         )
                         Text(
                             text = players[index].nameFull,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(16.dp),
+                            modifier = Modifier.padding(Dimens16),
 
                         )
 
@@ -114,8 +115,8 @@ fun ShowSquadList(matchData: SquadMatchData, sortedType: String) {
                                 textAlign = TextAlign.Center,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier
-                                    .padding(16.dp)
-                                    .background(DarkRed) // Optional: Background color inside the card
+                                    .padding(Dimens16)
+                                    .background(DarkRed)
                             )
                         }
 
@@ -128,7 +129,7 @@ fun ShowSquadList(matchData: SquadMatchData, sortedType: String) {
     // Dialog to show player details
     selectedPlayer?.let { player ->
         AlertDialog(
-            onDismissRequest = { selectedPlayer = null }, // Close dialog when dismissed
+            onDismissRequest = { selectedPlayer = null },
             title = { Text(text = player.nameFull, fontWeight = FontWeight.Bold) },
             text = {
                 Column {
@@ -149,40 +150,3 @@ fun ShowSquadList(matchData: SquadMatchData, sortedType: String) {
 
 }
 
-fun parsePlayer(input: String): Player {
-    val position = Regex("position=(\\d+)").find(input)?.groupValues?.get(1)?.toInt() ?: 0
-    val nameFull = Regex("nameFull=([^,]+)").find(input)?.groupValues?.get(1) ?: ""
-
-    val battingStyle =
-        Regex("batting=Batting\\(style=([^,]+)").find(input)?.groupValues?.get(1) ?: ""
-    val battingAverage =
-        Regex("average=([\\d.]+)").find(input)?.groupValues?.get(1)?.toDouble() ?: 0.0
-    val battingStrikeRate =
-        Regex("strikerate=([\\d.]+)").find(input)?.groupValues?.get(1)?.toDouble() ?: 0.0
-    val battingRuns = Regex("runs=(\\d+)").find(input)?.groupValues?.get(1)?.toInt() ?: 0
-
-    val bowlingStyle =
-        Regex("bowling=Bowling\\(style=([^,]+)").find(input)?.groupValues?.get(1) ?: ""
-    val bowlingAverage =
-        Regex("average=([\\d.]+)").find(input)?.groupValues?.get(1)?.toDouble() ?: 0.0
-    val bowlingEconomyRate =
-        Regex("economyRate=([\\d.]+)").find(input)?.groupValues?.get(1)?.toDouble() ?: 0.0
-    val bowlingWickets = Regex("wickets=(\\d+)").find(input)?.groupValues?.get(1)?.toInt() ?: 0
-
-    val isCaptain = Regex("(?i)isCaptain=([^,]+)").find(input)?.groupValues?.get(1)?.toBoolean() ?: false
-    val isKeeper = Regex("(?i)isKeeper=([^,]+)").find(input)?.groupValues?.get(1)?.toBoolean() ?: false
-    val batting = Batting(
-        battingStyle,
-        battingAverage.toString(),
-        battingStrikeRate.toString(),
-        battingRuns.toString()
-    )
-    val bowling = Bowling(
-        bowlingStyle,
-        bowlingAverage.toString(),
-        bowlingEconomyRate.toString(),
-        bowlingWickets.toString()
-    )
-
-    return Player(position.toString(), nameFull, batting, bowling, isCaptain, isKeeper)
-}

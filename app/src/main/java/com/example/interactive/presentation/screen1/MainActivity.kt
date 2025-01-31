@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import com.example.interactive.presentation.navigation.MatchNavigator
 import com.example.interactive.presentation.ui.theme.SampleAppForAPITheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 import dagger.hilt.android.AndroidEntryPoint
 

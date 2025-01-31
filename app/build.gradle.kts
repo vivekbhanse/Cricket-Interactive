@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.Interactive"
+    namespace = "com.example.interactive"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.Interactive"
+        applicationId = "com.example.interactive"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

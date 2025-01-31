@@ -11,8 +11,5 @@ import javax.inject.Inject
 class GetMatchDetailsUseCase @Inject constructor(
     private val matchRepository: MatchRepository
 ) {
-    suspend operator fun invoke(): Flow<ApiState<MatchDetail>> {
-        return matchRepository.getMatchDetails()
-    }
-
+     operator suspend fun invoke(): Flow<ApiState<MatchDetail>> = matchRepository.getMatchDetails()
 }

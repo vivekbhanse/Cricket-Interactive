@@ -42,7 +42,6 @@ object AppModule {
         loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor(loggingInterceptor)
-//            .addInterceptor(RetryInterceptor(maxRetries = 3))
             .build()
     }
 

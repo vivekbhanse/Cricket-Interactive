@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-
 import androidx.compose.ui.graphics.Color
 import com.example.interactive.domain.ApiState
 import com.example.interactive.presentation.Dimens.MediumPadding1
@@ -28,8 +27,6 @@ fun HomeMatchScreen(viewModel: HomeViewModel) {
             .padding(MediumPadding1)
             .statusBarsPadding()
     ) {
-
-
         when (matchState) {
             is ApiState.Loading ->{
                 ShimmerEffect()
@@ -46,7 +43,4 @@ fun HomeMatchScreen(viewModel: HomeViewModel) {
             }
         }
     }
-
-
-
 }

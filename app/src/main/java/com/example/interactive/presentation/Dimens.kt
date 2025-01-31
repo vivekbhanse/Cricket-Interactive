@@ -1,6 +1,7 @@
 package com.example.interactive.presentation
 
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object Dimens {
     val ExtraSmallPadding = 3.dp
@@ -13,4 +14,14 @@ object Dimens {
     val IconSize = 20.dp
     val ArticleCardSize = 96.dp
     val ArticleImageHeight = 248.dp
+    val Dimens4=4.dp
+    val Dimens8=8.dp
+    val Dimens12=12.dp
+    val Dimens16=16.dp
+    val Dimens24=24.dp
+
+    val Dimens8_txt=8.sp
+    val Dimens12_txt=12.sp
+    val Dimens16_txt=16.sp
+    val Dimens24_txt=24.sp
 }
